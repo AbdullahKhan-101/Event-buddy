@@ -1,0 +1,30 @@
+.App {
+  height: 290px;
+  width: 100%;
+  margin-top: -50px;
+}
+
+.circle {
+  /* background-image: url(../../assets/images/dashboard/marker.png); */
+  background-color: #AB1A4E;
+  color:  white;
+  height: 2em;
+  position: relative;
+  width: 2em;
+  border: 1px solid transparent;
+  border-radius: 50px;
+}
+
+.circleText {
+  text-align: center;
+  height: 70%;
+  left: 50%;
+  position: absolute;
+  top: 50%;
+transform: translate(-50%, -50%);
+  width: 70%;
+}
+
+.circle:hover {
+  cursor: pointer;
+}
