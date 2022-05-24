@@ -15,6 +15,7 @@ import SetPassModal from "./Modal/SetPassModal";
 import { useDispatch, useSelector } from "react-redux";
 import { HomeActions } from "../store/actions";
 import Loader from "../components/Loader/Loader";
+// import ForgotPass from "./Modal/ForgotPass";
 const Login = () => {
   const height = 0;
   const width = 0;

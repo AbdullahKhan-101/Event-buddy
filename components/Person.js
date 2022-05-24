@@ -97,8 +97,14 @@ const Person = ({ active }) => {
     <div>
       {/* <Script src="https://google.com"></Script> */}
       <Script src="Google/location/AIzaSyBzpeVhVlmsD3zeg6482RCOe7PcYSweF9E"></Script>
-      <div className={`${openReview ? "-z-50" : ""}`}>
-        <div className={`${isOpen === "open" ? "opacity-30" : "opacity-100"}`}>
+      <div
+      // className={`${openReview ? "-z-50" : ""}`}
+      >
+        <div
+          className={`${isOpen === "open" ? "opacity-30" : "opacity-100"}
+        ${openReview ? "opacity-90" : "opacity-100"}
+        `}
+        >
           <Nav active={active} />
         </div>
         {/* than tk */}

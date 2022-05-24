@@ -134,13 +134,14 @@ const Invite = () => {
   return (
     <div>
       {isOpen === "open" && (
-        <div className="z-50">
-          {/* <div className="z-50 bg-opacity-20 md:bg-opacity-10"> */}
-          {/* <Person /> */}
-          {/* </div> */}
+        <div className="z-20">
+          <div
+            onClick={() => setIsOpen("close")}
+            className="w-[100%] h-[100vh] bg-white fixed top-0  bg-opacity-60 right-0 left-0"
+          ></div>
           <animated.div
             style={styles}
-            className="fixed  rounded-xl p-4 md:p-10  shadow-2xl top-10 w-[95%] max-w-[640px] mx-auto right-0 left-0 md:top-20 z-50 bg-white"
+            className="fixed  rounded-xl p-4 md:p-10  shadow-2xl top-10 w-[95%] max-w-[640px] mx-auto right-0 left-0 md:top-20 z-20 bg-white"
           >
             <h1 className=" text-[#0E134F]  text-2xl text-center  px-1 font-strongg flex items-center">
               <span className="flex-grow">Invitation Messege</span>

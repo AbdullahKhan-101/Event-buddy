@@ -15,7 +15,7 @@ const RequestInvitionComponent = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [active, setActive] = useState("sent");
-  const [state, setState] = useState("accept");
+  const [state, setState] = useState("accepted");
 
   const [pendingInvitationsSuccess, setPendingInvitationsSuccess] = useState(
     []
@@ -39,8 +39,6 @@ const RequestInvitionComponent = () => {
 
   const GetPendingInvitations = () => {
     setState("pending");
-    setActive("close");
-    // setSignupSuccess(SignupResponse);
     dispatch(HomeActions.PendingInvitatioins());
     console.log(
       "checking get pending invitations ==> ",
@@ -50,105 +48,39 @@ const RequestInvitionComponent = () => {
 
   useEffect(() => {
     SentInvitations();
-    // accepted();
+    setActive("sent");
+    accepted();
   }, []);
 
   const SentInvitations = () => {
     setActive("sent");
-    setState("close");
+    setState("accepted");
     dispatch(HomeActions.SentInvitatioins());
-    console.log(
-      "checking sent invitations in request component",
-      sentInvitatioins
-    );
   };
 
   const ReceivedInvitations = () => {
-    console.log(
-      "checking received invitations in requst component",
-      receivedInvitatioins
-    );
     setActive("receive");
-    setState("receive");
+    setState("accepted");
     dispatch(HomeActions.ReceivedInvitatioins());
   };
 
   const InvitationByIdCalling = () => {
-    console.log(invitationById);
     dispatch(HomeActions.InvitationById());
   };
 
   const accepted = () => {
-    setState("accept");
-    setActive("close");
+    setState("accepted");
   };
   const rejected = () => {
     setState("rejected");
-    setActive("close");
   };
 
-  const dummyAcceptInvitationData = [
-    {
-      img: "/man1.png",
-      name: "Hameer Zaleem",
-      topic: "Birthaday Celebration",
-    },
-    {
-      img: "/man1.png",
-      name: "Hameer Zaleem",
-      topic: "Birthaday Celebration",
-    },
-    {
-      img: "/man1.png",
-      name: "Hameer Zaleem",
-      topic: "Birthaday Celebration",
-    },
-  ];
-
-  const pendingInvitationsData = pendingInvitations.data?.Data;
-
-  const dummyPendingInvitationData = [
-    {
-      img: "/man1.png",
-      name: "Hameer Zaleem",
-      topic: "Event Organization",
-    },
-    {
-      img: "/man1.png",
-      name: "Hameer Zaleem",
-      topic: "Event Organization",
-    },
-  ];
-  const dummyRejectedInvitationData = [
-    {
-      img: "/man1.png",
-      name: "Hameer Zaleem",
-      topic: "Event Rejected",
-    },
-  ];
+  // const pendingInvitationsData = pendingInvitations.data?.Data;
 
   const setntInvitationsData = sentInvitatioins.data?.Data;
-  const dummySentInvitationData = [
-    {
-      img: "/man1.png",
-      name: "David Warner",
-      topic: "Cricket Match",
-    },
-  ];
 
   const receivedInvitatioinsData = receivedInvitatioins?.data?.Data;
-  const dummyReceiveInvitationData = [
-    {
-      img: "/man1.png",
-      name: "Dave Parker",
-      topic: "Event Received",
-    },
-    {
-      img: "/man1.png",
-      name: "Dave Parker",
-      topic: "Event Received",
-    },
-  ];
+
   return (
     <div>
       <div className="md:max-w-[700px]  flex-grow  bg-white ">
@@ -215,8 +147,8 @@ const RequestInvitionComponent = () => {
               <p
                 onClick={accepted}
                 className={`
-                ${state === "accept" ? "bg-[#E9813B]" : " "}
-                ${state === "accept" ? "text-white" : "text-[#42526E]"}
+                ${state === "accepted" ? "bg-[#E9813B]" : " "}
+                ${state === "accepted" ? "text-white" : "text-[#42526E]"}
                 px-4 py-1  rounded-lg cursor-pointer  `}
               >
                 Accepted
@@ -242,155 +174,225 @@ const RequestInvitionComponent = () => {
             </div>
             <div className="p-1 sm:p-5 ">
               <div className="flex flex-wrap items-center justify-around m-2 md:justify-between">
-                {state === "accept" &&
-                  dummyAcceptInvitationData.map((item, index) => {
-                    return (
-                      // {item.status === "accept" && (
-
-                      // )}
-                      <div
-                        key={index}
-                        onClick={InvitationByIdCalling}
-                        className="flex items-center  p-2 py-4 mt-2 flex-grow bg-white rounded-lg shadow-[0px_4px_40px_-20px_rgba(0,0,0,0.3)] cursor-pointer md:-ml-2  md:max-w-[300px] max-w-[390px] sm:min-w-[300px] m-2"
-                      >
-                        <div className="relative flex-grow-0 sm:mt-0 mt-0  max-w-[100%] w-[55px] h-[55px]  min-w-[55px]">
-                          <Image
-                            src={item.img}
-                            layout="fill"
-                            objectfit="contain"
-                            className="rounded-xl"
-                          />
-                        </div>
-                        <div className="flex items-center flex-grow ml-4 md:ml-4">
-                          <div className="flex-grow">
-                            <p className="mb-1 text-sm text-[#E9813B]  min-w-[50px]">
-                              {item.name}
-                            </p>
-                            <h1 className=" text-[#0E134F] font-semibold line-clamp-1  min-w-[140px]">
-                              {item.topic}
-                            </h1>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                {state === "pending" &&
-                  pendingInvitationsData?.map((item, index) => {
-                    return (
-                      <div
-                        key={index}
-                        onClick={InvitationByIdCalling}
-                        className="flex items-center  p-2 py-4 mt-2 flex-grow bg-white rounded-lg shadow-[0px_4px_40px_-20px_rgba(0,0,0,0.3)] cursor-pointer md:-ml-2  md:max-w-[300px] max-w-[390px] sm:min-w-[300px] m-2"
-                      >
-                        <div className="relative flex-grow-0 sm:mt-0 mt-0  max-w-[100%] w-[55px] h-[55px]  min-w-[55px]">
-                          <Image
-                            src={imageBaseUrl + item?.CreatedBy?.Media?.Path}
-                            // src="/gora1.png"
-                            layout="fill"
-                            objectfit="contain"
-                            className="rounded-xl"
-                          />
-                        </div>
-                        <div className="flex items-center flex-grow ml-4 md:ml-4">
-                          <div className="flex-grow">
-                            <p className="mb-1 text-sm text-[#E9813B]  min-w-[50px]">
-                              {item?.CreatedBy?.FullName}
-                            </p>
-                            <h1 className=" text-[#0E134F] font-semibold line-clamp-1  min-w-[140px]">
-                              {item?.Title}
-                            </h1>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                {state === "rejected" &&
-                  dummyRejectedInvitationData.map((item, index) => {
-                    return (
-                      <div
-                        key={index}
-                        onClick={InvitationByIdCalling}
-                        className="flex items-center  p-2 py-4 mt-2 flex-grow bg-white rounded-lg shadow-[0px_4px_40px_-20px_rgba(0,0,0,0.3)] cursor-pointer md:-ml-2  md:max-w-[300px] max-w-[390px] sm:min-w-[300px] m-2"
-                      >
-                        <div className="relative flex-grow-0 sm:mt-0 mt-0  max-w-[100%] w-[55px] h-[55px]  min-w-[55px]">
-                          <Image
-                            src={item.img}
-                            layout="fill"
-                            objectfit="contain"
-                            className="rounded-xl"
-                          />
-                        </div>
-                        <div className="flex items-center flex-grow ml-4 md:ml-4">
-                          <div className="flex-grow">
-                            <p className="mb-1 text-sm text-[#E9813B]  min-w-[50px]">
-                              {item.name}
-                            </p>
-                            <h1 className=" text-[#0E134F] font-semibold line-clamp-1  min-w-[140px]">
-                              {item.topic}
-                            </h1>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
-                {active === "receive" &&
-                  receivedInvitatioinsData?.map((item, index) => {
-                    return (
-                      <div
-                        key={index}
-                        onClick={InvitationByIdCalling}
-                        className="flex items-center  p-2 py-4 mt-2 flex-grow bg-white rounded-lg shadow-[0px_4px_40px_-20px_rgba(0,0,0,0.3)] cursor-pointer md:-ml-2  md:max-w-[300px] max-w-[390px] sm:min-w-[300px] m-2"
-                      >
-                        <div className="relative flex-grow-0 sm:mt-0 mt-0  max-w-[100%] w-[55px] h-[55px]  min-w-[55px]">
-                          <Image
-                            src={imageBaseUrl + item?.CreatedBy?.Media?.Path}
-                            layout="fill"
-                            objectfit="contain"
-                            className="rounded-xl"
-                          />
-                        </div>
-                        <div className="flex items-center flex-grow ml-4 md:ml-4">
-                          <div className="flex-grow">
-                            <p className="mb-1 text-sm text-[#E9813B]  min-w-[50px]">
-                              {item?.CreatedBy?.FullName}
-                            </p>
-                            <h1 className=" text-[#0E134F] font-semibold line-clamp-1  min-w-[140px]">
-                              {item?.Title}
-                            </h1>
-                          </div>
-                        </div>
-                      </div>
-                    );
-                  })}
+                {/* ----------- / ------------- */}
                 {active === "sent" &&
-                  setntInvitationsData?.map((item, index) => {
-                    return (
-                      <div
-                        key={index}
-                        onClick={InvitationByIdCalling}
-                        className="flex items-center  p-2 py-4 mt-2 flex-grow bg-white rounded-lg shadow-[0px_4px_40px_-20px_rgba(0,0,0,0.3)] cursor-pointer md:-ml-2  md:max-w-[300px] max-w-[390px] sm:min-w-[300px] m-2"
-                      >
-                        <div className="relative flex-grow-0 sm:mt-0 mt-0  max-w-[100%] w-[55px] h-[55px]  min-w-[55px]">
-                          <Image
-                            src={imageBaseUrl + item?.CreatedBy?.Media?.Path}
-                            layout="fill"
-                            objectfit="contain"
-                            className="rounded-xl"
-                          />
-                        </div>
-                        <div className="flex items-center flex-grow ml-4 md:ml-4">
-                          <div className="flex-grow">
-                            <p className="mb-1 text-sm text-[#E9813B]  min-w-[50px]">
-                              {item?.User?.FullName}
-                            </p>
-                            <h1 className=" text-[#0E134F] font-semibold line-clamp-1  min-w-[140px]">
-                              {item?.Title}
-                            </h1>
+                  state === "accepted" &&
+                  setntInvitationsData
+                    ?.filter((item) => {
+                      return item.Status === "accepted";
+                    })
+                    .map((item, index) => {
+                      console.log(
+                        "checking ============>  sent invitations =======> status ===> ",
+                        item.Status
+                      );
+                      return (
+                        <div
+                          key={index}
+                          onClick={InvitationByIdCalling}
+                          className="flex items-center  p-2 py-4 mt-2 flex-grow bg-white rounded-lg shadow-[0px_4px_40px_-20px_rgba(0,0,0,0.3)] cursor-pointer md:-ml-2  md:max-w-[300px] max-w-[390px] sm:min-w-[300px] m-2"
+                        >
+                          <div className="relative flex-grow-0 sm:mt-0 mt-0  max-w-[100%] w-[55px] h-[55px]  min-w-[55px]">
+                            <Image
+                              src={imageBaseUrl + item?.CreatedBy?.Media?.Path}
+                              layout="fill"
+                              objectfit="contain"
+                              className="rounded-xl"
+                            />
+                          </div>
+                          <div className="flex items-center flex-grow ml-4 md:ml-4">
+                            <div className="flex-grow">
+                              <p className="mb-1 text-sm text-[#E9813B]  min-w-[50px]">
+                                {item?.User?.FullName}
+                              </p>
+                              <h1 className=" text-[#0E134F] font-semibold line-clamp-1  min-w-[140px]">
+                                {item?.Title}
+                              </h1>
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    );
-                  })}
+                      );
+                    })}
+
+                {active === "sent" &&
+                  state === "pending" &&
+                  setntInvitationsData
+                    ?.filter((item) => {
+                      return item.Status === "pending";
+                    })
+                    .map((item, index) => {
+                      console.log(
+                        "checking ============>  sent invitations =======> status ===> ",
+                        item.Status
+                      );
+                      return (
+                        <div
+                          key={index}
+                          onClick={InvitationByIdCalling}
+                          className="flex items-center  p-2 py-4 mt-2 flex-grow bg-white rounded-lg shadow-[0px_4px_40px_-20px_rgba(0,0,0,0.3)] cursor-pointer md:-ml-2  md:max-w-[300px] max-w-[390px] sm:min-w-[300px] m-2"
+                        >
+                          <div className="relative flex-grow-0 sm:mt-0 mt-0  max-w-[100%] w-[55px] h-[55px]  min-w-[55px]">
+                            <Image
+                              src={imageBaseUrl + item?.CreatedBy?.Media?.Path}
+                              layout="fill"
+                              objectfit="contain"
+                              className="rounded-xl"
+                            />
+                          </div>
+                          <div className="flex items-center flex-grow ml-4 md:ml-4">
+                            <div className="flex-grow">
+                              <p className="mb-1 text-sm text-[#E9813B]  min-w-[50px]">
+                                {item?.User?.FullName}
+                              </p>
+                              <h1 className=" text-[#0E134F] font-semibold line-clamp-1  min-w-[140px]">
+                                {item?.Title}
+                              </h1>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                {active === "sent" &&
+                  state === "rejected" &&
+                  setntInvitationsData
+                    ?.filter((item) => {
+                      return item.Status === "rejected";
+                    })
+                    .map((item, index) => {
+                      console.log(
+                        "checking ============>  sent invitations =======> status ===> ",
+                        item.Status
+                      );
+                      return (
+                        <div
+                          key={index}
+                          onClick={InvitationByIdCalling}
+                          className="flex items-center  p-2 py-4 mt-2 flex-grow bg-white rounded-lg shadow-[0px_4px_40px_-20px_rgba(0,0,0,0.3)] cursor-pointer md:-ml-2  md:max-w-[300px] max-w-[390px] sm:min-w-[300px] m-2"
+                        >
+                          <div className="relative flex-grow-0 sm:mt-0 mt-0  max-w-[100%] w-[55px] h-[55px]  min-w-[55px]">
+                            <Image
+                              src={imageBaseUrl + item?.CreatedBy?.Media?.Path}
+                              layout="fill"
+                              objectfit="contain"
+                              className="rounded-xl"
+                            />
+                          </div>
+                          <div className="flex items-center flex-grow ml-4 md:ml-4">
+                            <div className="flex-grow">
+                              <p className="mb-1 text-sm text-[#E9813B]  min-w-[50px]">
+                                {item?.User?.FullName}
+                              </p>
+                              <h1 className=" text-[#0E134F] font-semibold line-clamp-1  min-w-[140px]">
+                                {item?.Title}
+                              </h1>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                {/* ----------- / ------------- */}
+                {state === "accepted" &&
+                  active === "receive" &&
+                  receivedInvitatioinsData
+                    ?.filter((item) => {
+                      return item.Status === "accepted";
+                    })
+                    .map((item, index) => {
+                      return (
+                        <div
+                          key={index}
+                          onClick={InvitationByIdCalling}
+                          className="flex items-center  p-2 py-4 mt-2 flex-grow bg-white rounded-lg shadow-[0px_4px_40px_-20px_rgba(0,0,0,0.3)] cursor-pointer md:-ml-2  md:max-w-[300px] max-w-[390px] sm:min-w-[300px] m-2"
+                        >
+                          <div className="relative flex-grow-0 sm:mt-0 mt-0  max-w-[100%] w-[55px] h-[55px]  min-w-[55px]">
+                            <Image
+                              src={imageBaseUrl + item?.CreatedBy?.Media?.Path}
+                              layout="fill"
+                              objectfit="contain"
+                              className="rounded-xl"
+                            />
+                          </div>
+                          <div className="flex items-center flex-grow ml-4 md:ml-4">
+                            <div className="flex-grow">
+                              <p className="mb-1 text-sm text-[#E9813B]  min-w-[50px]">
+                                {item?.CreatedBy?.FullName}
+                              </p>
+                              <h1 className=" text-[#0E134F] font-semibold line-clamp-1  min-w-[140px]">
+                                {item?.Title}
+                              </h1>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                {state === "pending" &&
+                  active === "receive" &&
+                  receivedInvitatioinsData
+                    ?.filter((item) => {
+                      return item.Status === "pending";
+                    })
+                    .map((item, index) => {
+                      return (
+                        <div
+                          key={index}
+                          onClick={InvitationByIdCalling}
+                          className="flex items-center  p-2 py-4 mt-2 flex-grow bg-white rounded-lg shadow-[0px_4px_40px_-20px_rgba(0,0,0,0.3)] cursor-pointer md:-ml-2  md:max-w-[300px] max-w-[390px] sm:min-w-[300px] m-2"
+                        >
+                          <div className="relative flex-grow-0 sm:mt-0 mt-0  max-w-[100%] w-[55px] h-[55px]  min-w-[55px]">
+                            <Image
+                              src={imageBaseUrl + item?.CreatedBy?.Media?.Path}
+                              layout="fill"
+                              objectfit="contain"
+                              className="rounded-xl"
+                            />
+                          </div>
+                          <div className="flex items-center flex-grow ml-4 md:ml-4">
+                            <div className="flex-grow">
+                              <p className="mb-1 text-sm text-[#E9813B]  min-w-[50px]">
+                                {item?.CreatedBy?.FullName}
+                              </p>
+                              <h1 className=" text-[#0E134F] font-semibold line-clamp-1  min-w-[140px]">
+                                {item?.Title}
+                              </h1>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
+                {state === "rejected" &&
+                  active === "receive" &&
+                  receivedInvitatioinsData
+                    ?.filter((item) => {
+                      return item.Status === "rejected";
+                    })
+                    .map((item, index) => {
+                      return (
+                        <div
+                          key={index}
+                          onClick={InvitationByIdCalling}
+                          className="flex items-center  p-2 py-4 mt-2 flex-grow bg-white rounded-lg shadow-[0px_4px_40px_-20px_rgba(0,0,0,0.3)] cursor-pointer md:-ml-2  md:max-w-[300px] max-w-[390px] sm:min-w-[300px] m-2"
+                        >
+                          <div className="relative flex-grow-0 sm:mt-0 mt-0  max-w-[100%] w-[55px] h-[55px]  min-w-[55px]">
+                            <Image
+                              src={imageBaseUrl + item?.CreatedBy?.Media?.Path}
+                              layout="fill"
+                              objectfit="contain"
+                              className="rounded-xl"
+                            />
+                          </div>
+                          <div className="flex items-center flex-grow ml-4 md:ml-4">
+                            <div className="flex-grow">
+                              <p className="mb-1 text-sm text-[#E9813B]  min-w-[50px]">
+                                {item?.CreatedBy?.FullName}
+                              </p>
+                              <h1 className=" text-[#0E134F] font-semibold line-clamp-1  min-w-[140px]">
+                                {item?.Title}
+                              </h1>
+                            </div>
+                          </div>
+                        </div>
+                      );
+                    })}
               </div>
             </div>
           </div>
