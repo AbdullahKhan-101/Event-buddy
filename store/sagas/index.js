@@ -1,4 +1,3 @@
-// Imports: Dependencies
 import { all, takeLatest } from "redux-saga/effects";
 
 // Imports: Actions

@@ -82,7 +82,8 @@ const AcceptInvite = () => {
                 <p className="flex items-center mt-7 mb-7">
                   <LocationMarkerIcon className="w-5 h-5 text-[#ED974B]" />
                   <span className="ml-2 text-sm text-gray-500">
-                    {acceptInviteDummyData.location}
+                    {/* {acceptInviteDummyData.location} */}
+                    street no 5
                   </span>
                 </p>
               </div>

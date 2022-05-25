@@ -33,7 +33,7 @@ const validateResponse = (response) => {
   });
 };
 
-const JWT_TOKEN = "c0bdb603-0d80-4a87-bc0d-4e900691b6bb";
+// const JWT_TOKEN = "c0bdb603-0d80-4a87-bc0d-4e900691b6bb";
 
 export function* OnSignupSuccess(action) {
   console.log("hello world");
@@ -59,9 +59,10 @@ export function* OnSignupSuccess(action) {
 export function* CreateInvitation(action) {
   console.log("hello world from create invitatioin fuction in saga");
   const payload = action;
+  const JWT_TOKEN = localStorage.getItem("JWT");
   const response = yield call(ApiCaller.Post, `invitation`, payload, {
     "content-type": "application/json",
-    authorization: "cc48e853-ba0f-4e92-89eb-215850788333",
+    authorization: JWT_TOKEN,
   });
   console.log(response, "Get User Dash data22");
   const response_status = yield call(validateResponse, response);
@@ -128,11 +129,13 @@ export function* GetDiscoverUsers(action) {
 
 export function* GetUserById(action) {
   console.log("hello world from GetUserById");
-  // const payload = action;
+  const payload = action.payload;
   const id = "1";
-  const response = yield call(ApiCaller.Get, `user/details/${id}`, {
+  const JWT_TOKEN = localStorage.getItem("JWT");
+
+  const response = yield call(ApiCaller.Get, `user/details/${payload}`, {
     "content-type": "application/json",
-    authorization: "cc48e853-ba0f-4e92-89eb-215850788333",
+    authorization: JWT_TOKEN,
   });
   console.log(response, "Get  User by id ");
   const response_status = yield call(validateResponse, response);
@@ -153,6 +156,7 @@ export function* GetPendingInvitations(action) {
   console.log("hello world from GetPendingInvitations");
   // const payload = action;
   // const id = "1";
+  const JWT_TOKEN = localStorage.getItem("JWT");
   const response = yield call(ApiCaller.Get, `invitation/pending`, {
     "content-type": "application/json",
     authorization: JWT_TOKEN,
@@ -176,6 +180,8 @@ export function* GetSentInvitations(action) {
   console.log("hello world from GetSentInvitations");
   // const payload = action;
   // const id = "1";
+
+  const JWT_TOKEN = localStorage.getItem("JWT");
   const response = yield call(ApiCaller.Get, `invitation/sent`, {
     "content-type": "application/json",
     authorization: JWT_TOKEN,
@@ -199,6 +205,7 @@ export function* GetReceivedInvitations(action) {
   console.log("hello world from GetReceivedInvitations");
   // const payload = action;
   // const id = "1";
+  const JWT_TOKEN = localStorage.getItem("JWT");
   const response = yield call(ApiCaller.Get, `invitation/received`, {
     "content-type": "application/json",
     authorization: JWT_TOKEN,
@@ -220,9 +227,10 @@ export function* GetReceivedInvitations(action) {
 
 export function* GetInvitationById(action) {
   console.log("hello world from GetInvitationById");
-  // const payload = action;
+  const payload = action.payload;
   const id = "3";
-  const response = yield call(ApiCaller.Get, `invitation/details/${id}`, {
+  const JWT_TOKEN = localStorage.getItem("JWT");
+  const response = yield call(ApiCaller.Get, `invitation/details/${payload}`, {
     "content-type": "application/json",
     authorization: JWT_TOKEN,
   });
@@ -245,6 +253,7 @@ export function* GetInvitationMessages(action) {
   console.log("hello world from GetInvitationMessages");
   // const payload = action;
   // const id = "3";
+  const JWT_TOKEN = localStorage.getItem("JWT");
   const response = yield call(ApiCaller.Get, `invitation/messages`, {
     "content-type": "application/json",
     authorization: JWT_TOKEN,
@@ -266,9 +275,10 @@ export function* GetInvitationMessages(action) {
 
 export function* GetInvitationChat(action) {
   console.log("hello world from GetInvitationChat");
-  // const payload = action;
-  const id = "24";
-  const response = yield call(ApiCaller.Get, `chat/${id}`, {
+  const payload = action.payload;
+  // const id = "24";
+  const JWT_TOKEN = localStorage.getItem("JWT");
+  const response = yield call(ApiCaller.Get, `chat/${payload}`, {
     "content-type": "application/json",
     authorization: JWT_TOKEN,
   });
@@ -291,6 +301,7 @@ export function* GetUserReviews(action) {
   console.log("hello world from GetUserReviews", action);
   const payload = action?.payload;
   // const id = "2";
+  const JWT_TOKEN = localStorage.getItem("JWT");
   const response = yield call(ApiCaller.Get, `review/user/${payload}`, {
     "content-type": "application/json",
     authorization: JWT_TOKEN,
@@ -312,9 +323,10 @@ export function* GetUserReviews(action) {
 
 export function* GetMyReviewForUser(action) {
   console.log("GetMyReviewForUser");
-  // const payload = action;
+  const payload = action.payload;
   const id = "2";
-  const response = yield call(ApiCaller.Get, `review/my/user/${id}`, {
+  const JWT_TOKEN = localStorage.getItem("JWT");
+  const response = yield call(ApiCaller.Get, `review/my/user/${payload}`, {
     "content-type": "application/json",
     authorization: JWT_TOKEN,
   });
@@ -335,12 +347,13 @@ export function* GetMyReviewForUser(action) {
 
 export function* GetMyReviewForInvitation(action) {
   console.log("GetMyReviewForInvitation");
-  // const payload = action;
+  const payload = action.payload;
   const id_one = "2";
   const id_two = "4";
+  const JWT_TOKEN = localStorage.getItem("JWT");
   const response = yield call(
     ApiCaller.Get,
-    `review/my/user/${id_one}/invitation/${id_two}`,
+    `review/my/user/${payload}/invitation/${id_two}`,
     {
       "content-type": "application/json",
       authorization: JWT_TOKEN,
@@ -365,6 +378,7 @@ export function* GetNotifications(action) {
   console.log("GetNotifications");
   // const payload = action;
   // const id = "2";
+  const JWT_TOKEN = localStorage.getItem("JWT");
   const response = yield call(ApiCaller.Get, `notification`, {
     "content-type": "application/json",
     authorization: JWT_TOKEN,
